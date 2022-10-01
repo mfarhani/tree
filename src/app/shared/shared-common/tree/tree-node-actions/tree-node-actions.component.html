@@ -1,0 +1,46 @@
+<div class="nicico-tree-node-default-actions" *ngIf="treeConfig.hasCrudOperation">
+  <div class="add-node-container" *ngIf="treeConfig.canAddNode && !currentNode?.item?.hideAddButton" (click)="onAddClick()">
+    <div class="add-node-svg-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" class="add-node-svg">
+        <g id="Group_13816" data-name="Group 13816" transform="translate(-15.197 -9.5)">
+          <g id="plus-circle_1_" data-name="plus-circle (1)" transform="translate(15.197 9.5)">
+            <path id="Ellipse_735" data-name="Ellipse 735"
+                  d="M9-1A10,10,0,1,1-1,9,10.011,10.011,0,0,1,9-1ZM9,17A8,8,0,1,0,1,9,8.009,8.009,0,0,0,9,17Z"
+                  transform="translate(1 1)"/>
+            <path id="Line_1131" data-name="Line 1131"
+                  d="M0,9A1,1,0,0,1-1,8V0A1,1,0,0,1,0-1,1,1,0,0,1,1,0V8A1,1,0,0,1,0,9Z"
+                  transform="translate(10 6)"/>
+            <path id="Line_1132" data-name="Line 1132"
+                  d="M8,1H0A1,1,0,0,1-1,0,1,1,0,0,1,0-1H8A1,1,0,0,1,9,0,1,1,0,0,1,8,1Z"
+                  transform="translate(6 10)"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="delete-node-container" *ngIf="treeConfig?.canDeleteNode" (click)="onDeleteClick()">
+    <div class="delete-node-svg-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18" class="delete-node-svg">
+        <g id="Group_13818" data-name="Group 13818" transform="translate(-5 -3)">
+          <path id="Path_14552" data-name="Path 14552"
+                d="M16,9V19H8V9h8M14.5,3h-5l-1,1H5V6H19V4H15.5ZM18,7H6V19a2.006,2.006,0,0,0,2,2h8a2.006,2.006,0,0,0,2-2Z"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="edit-node-container" *ngIf="treeConfig?.canEditNode" (click)="onEditClick()">
+    <div class="edit-node-svg-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18.002" height="18" viewBox="0 0 18.002 18" class="edit-node-svg">
+        <g id="Group_13821" data-name="Group 13821" transform="translate(-3 -3)">
+          <path id="Path_14391" data-name="Path 14391"
+                d="M14.06,9.02l.92.92L5.92,19H5v-.92l9.06-9.06M17.66,3a1,1,0,0,0-.7.29L15.13,5.12l3.75,3.75,1.83-1.83a1,1,0,0,0,0-1.41L18.37,3.29A.982.982,0,0,0,17.66,3Zm-3.6,3.19L3,17.25V21H6.75L17.81,9.94,14.06,6.19Z"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</div>
+<div class="custom-comp-container" *ngIf="treeConfig.customComponent">
+  <!--  <div class="custom-comp" [customComponent]="treeConfig.customComponent"-->
+  <!--       [data]="currentNode">-->
+  <!--  </div>-->
+</div>

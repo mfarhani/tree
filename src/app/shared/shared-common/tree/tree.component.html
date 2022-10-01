@@ -1,0 +1,98 @@
+<div class="tree-container">
+  <div class="tree-header">
+    <div class="tree-search-container">
+      <div class="tree-search-icon">
+        <!--        I used svg because it's more suitable to use as a library without any assets-->
+        <svg xmlns="http://www.w3.org/2000/svg" width="19.999" height="20" viewBox="0 0 19.999 20">
+          <g id="Group_13281" data-name="Group 13281" transform="translate(-551 -11)">
+            <path id="Mask"
+                  d="M19,20a.993.993,0,0,1-.707-.292l-5.4-5.4A7.918,7.918,0,0,1,8,16a8,8,0,1,1,8-8,7.9,7.9,0,0,1-1.688,4.9l5.4,5.4A1,1,0,0,1,19,20ZM8,2a6,6,0,1,0,6,6A6.007,6.007,0,0,0,8,2Z"
+                  transform="translate(551 11)" fill="#e2e2e2"/>
+          </g>
+        </svg>
+      </div>
+      <input [(ngModel)]="filter" type="text" placeholder="Search" (input)="search(filter)">
+    </div>
+  </div>
+  <div class="tree-wrapper" *ngIf="dataSource && dataSource.data">
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+      <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding (click)="onNodeClick(node)"
+                     [ngStyle]="{'font-weight':isWithinExpandedArea(node) && !node?.item?.parentId?600:400,'margin-left.px':node.level * 5}"
+                     [ngClass]="{'tree-expanded-area':isWithinExpandedArea(node)}"
+                     class="expanded-area-{{node.isExpanded ? node.level+1 : node.level}} ">
+        <div class="tree-node-container" [ngStyle]="{'padding-left.px':10}"
+             [ngClass]="{'accountingTreeNodeLevel3toUpBg':node.level>=3}"
+             class="tree-node-bg-{{node.level}}">
+
+
+          <span class="branch-line-container" style="margin-left: 0" *ngIf="node.level!==0">
+              <span *ngFor="let parent of getAncestor(node.item);let i=index">
+                 <span class="branch-line"
+                       [ngStyle]="{'margin-left.px' : i>0 ? -i*20-32 : -27}"
+                       [ngClass]="{'tree-no-border-bottom':i>0&&!parent.isLastChild&&!parent.isRoot,
+                       'tree-no-border':i>0&&parent.isLastChild}">
+                 </span>
+             </span>
+          </span>
+          <ng-container class="empty-node-branch-line-container" *ngIf="node.item.id === emptyNodeParentId">
+          <span *ngFor="let parent of getAncestor(node.item);let i=index">
+                 <span class="branch-line tree-no-border-bottom" *ngIf="!parent.isLastChild"
+                       style="margin-top: 16px"
+                       [ngStyle]="{'margin-left.px' : i>0 ? -i*20-27 : -27}"
+                       [ngClass]="{'tree-no-border':i>0&&parent.isLastChild}">
+                 </span>
+             </span>
+            <span class="empty-node-branch-line" [ngStyle]="{'width.px':17+node.level+1}"></span>
+          </ng-container>
+          <button mat-flat-button class="tree-toggle-btn" type="button"
+                  [ngClass]="{'tree-expanded':node.item.parentId}" *ngIf="!searchMode"
+                  [attr.aria-label]="'Toggle ' + node.item" matTreeNodeToggle [id]="'toggle-' + node.item.id">
+            <mat-icon
+              class="tree-mat-icon-rtl-mirror tree-arrow-icon tree-toggle-btn-bg-{{node.level}}"
+              [ngClass]="{'accountingTreeNodeBtnLevel3toUpBg':node.level>=3}">{{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </button>
+          <button mat-flat-button class="tree-toggle-btn" type="button"
+                  [ngClass]="{'tree-expanded':node.item.parentId}"
+                  *ngIf="searchMode"
+                  [attr.aria-label]="'Toggle ' + node.item" matTreeNodeToggle [id]="'toggle-' + node.item.id">
+            <mat-icon
+              class="tree-mat-icon-rtl-mirror tree-arrow-icon tree-toggle-btn-bg-{{node.level}}"
+            >{{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </button>
+          <div class="tree-node">
+            <div class="tree-node-title" *ngIf="!treeConfig.customComponent">
+              <mat-checkbox color="primary" *ngIf="treeConfig?.canSelectNode" [checked]="node?.selected"
+                            (change)="selectNodeChange(node)"></mat-checkbox>
+              {{node.item[treeConfig.titleKey || '']}}
+            </div>
+            <div class="tree-node-actions-container">
+              <mf-tree-node-actions [currentNode]="node"
+                                    [treeConfig]="treeConfig"
+                                    (onAdd)="onAddClicked($event)"
+                                    (onDelete)="onDeleteClicked(node)"
+                                    (onEdit)="onEditClicked(node)"
+              ></mf-tree-node-actions>
+            </div>
+          </div>
+        </div>
+        <mat-progress-bar *ngIf="node.isLoading"
+                          mode="indeterminate"
+                          class="tree-progress-bar"></mat-progress-bar>
+        <div class="empty-node-container" *ngIf="node.item.id === emptyNodeParentId"
+             [ngStyle]="{'margin-left.px':node.level+1 * 20}">
+          <!--          <span class="empty-node-arrow">-->
+          <!--            <svg xmlns="http://www.w3.org/2000/svg" width="11.333" height="16.004" viewBox="0 0 11.333 16.004">-->
+          <!--  <g id="Group_13816" data-name="Group 13816" transform="translate(19.191 -148.933)">-->
+          <!--    <path id="Path_19926" data-name="Path 19926"-->
+          <!--          d="M8.2,1.067a1,1,0,0,1,1.6,0l7,9.333A1,1,0,0,1,16,12H2a1,1,0,0,1-.8-1.6Z"-->
+          <!--          transform="translate(-19.857 165.935) rotate(-90)" fill="#fe9d2a"/>-->
+          <!--  </g>-->
+          <!--</svg>-->
+          <!--          </span>-->
+        </div>
+      </mat-tree-node>
+    </mat-tree>
+  </div>
+</div>

@@ -1,0 +1,272 @@
+$tree-width: var(--tree-width);
+$tree-bg-color: #ffffff;
+$header-height: var(--filter-header-height);
+$toggle-btn-bg: var(--menu-active-background);
+$expanded-toggle-btn-bg: #ececec;
+$transition-duration: .2s;
+$node-height: 23px;
+.tree-container {
+  width: 100%;
+  height: calc(100% - 2 * 20px);
+  background: $tree-bg-color;
+  max-width: 100%;
+  min-width: 600px;
+  position: relative;
+  overflow: hidden;
+
+  .tree-header {
+    display: flex;
+    justify-content: left;
+    position: relative;
+    width: $tree-width;
+    margin: 1rem;
+
+    .tree-search-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+
+      ::placeholder {
+        color: #B7B7B7;
+      }
+
+      .icon-filter {
+        position: absolute;
+        top: 14px;
+        left: 12px;
+      }
+
+      .tree-search-icon {
+        position: absolute;
+        top: 55%;
+        transform: translateY(-50%);
+        left: 10px;
+        cursor: pointer;
+      }
+
+      input {
+        width: 100%;
+        outline: none;
+        border: 1px solid #E2E2E2;
+        border-radius: 5px;
+        padding: 12px 40px;
+      }
+    }
+  }
+
+  .tree-wrapper {
+    margin: 1rem;
+    width: $tree-width;
+    scrollbar-width: thin;
+    scrollbar-color: #0A4C95 #c2d2e4;
+    overflow-y: auto;
+    height: calc(100% - 50px);
+
+    .mat-tree {
+      background: transparent;
+      margin: 1rem;
+      //overflow: auto;
+      .tree-node-bg-0, .tree-toggle-btn-bg-0 {
+        background-color: #9CABBA;
+      }
+
+      .tree-node-bg-1, .tree-toggle-btn-bg-1 {
+        background-color: #CCD8E4;
+      }
+
+      .tree-node-bg-2, .tree-toggle-btn-bg-2 {
+        background-color: #F1F6F8;
+      }
+
+      ::ng-deep .mat-tree-node {
+        min-height: 2rem;
+        display: block;
+        position: relative;
+        padding-left: 0 !important;
+
+        .tree-node-container {
+          white-space: nowrap;
+          padding: .2rem .5rem !important;
+          margin: 5px 0;
+          border-radius: 5px;
+          height: 30px;
+
+          .tree-toggle-btn {
+            z-index: 2;
+            min-height: 1.5rem;
+            height: 1.5rem;
+            min-width: 1.8rem;
+            width: 1.8rem;
+            line-height: 1rem;
+            color: #324458;
+            padding: 0 14px;
+            margin-top: 6px;
+            margin-right: -7px;
+            text-align: center;
+            background-color: unset;
+
+            &.tree-expanded {
+              color: #324458;
+            }
+
+            .mat-button-wrapper {
+              padding: 7px 0 !important;
+              margin-right: -13px;
+              border-radius: 5px;
+            }
+
+            .tree-arrow-icon {
+              border-radius: 5px;
+              z-index: 2 !important;
+              margin-right: -2px;
+              margin-top: -5px;
+              height: 28px !important;
+            }
+          }
+
+          .tree-node {
+            //display: inline-block;
+            //margin-right: .5rem;
+            //height: $node-height;
+            //border-radius: 1rem;
+
+            .tree-node-title {
+              //margin: 0 .5rem;
+              color: #324458;
+              margin-top: -24px;
+              margin-left: 40px;
+            }
+
+            .tree-progress-bar {
+              display: flex;
+              margin-right: .5rem;
+            }
+          }
+
+          &:hover {
+            cursor: pointer;
+            background-color: #e6eaeb !important;
+
+            .accountingTreeNodeBtnLevel3toUpBg, .tree-toggle-btn-bg-0, .tree-toggle-btn-bg-1, .tree-toggle-btn-bg-2 {
+              background-color: #e6eaeb !important;
+            }
+          }
+        }
+
+        .load-more-wrapper {
+          display: flex;
+          justify-content: center;
+
+          .load-more-btn {
+            font-size: .8rem;
+            border-radius: 5px;
+            line-height: 1rem;
+            height: 34px;
+            padding: 0 2rem;
+            background-color: #e1e1e1;
+            box-shadow: none !important;
+
+            &.tree-expanded {
+              background-color: transparent;
+            }
+          }
+        }
+
+        .tree-node-actions-container {
+          display: inline-block;
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 2.21rem;
+        }
+      }
+
+      .accountingTreeNodeLevel3toUpBg, .accountingTreeNodeBtnLevel3toUpBg {
+        background-color: #F1F6F8;
+      }
+
+      .empty-node-container {
+        //width: 100%;
+        height: 31px;
+        border: 1px dotted #FE9D2A;
+        background-color: #FFFAF3;
+        top: 43px;
+        right: 0;
+        border-radius: 5px;
+
+        .empty-node-arrow {
+          display: inline-block;
+          position: absolute;
+          left: -15px;
+          top: 48px;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .collapse-all-tooltip {
+  background-color: white;
+  color: black !important;
+  margin-left: 6rem !important;
+  font-size: .8rem;
+}
+
+::ng-deep {
+  .mat-progress-bar-fill::after {
+    background-color: #FE9D2A !important;
+  }
+
+  .mat-progress-bar-background {
+    fill: #FFF3E5;
+  }
+
+  .mat-progress-bar-buffer {
+    background-color: #FFF3E5;
+  }
+
+  .mat-progress-bar {
+    height: 2px !important;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.branch-line {
+  border-left: 1px dotted #949DA7;
+  border-bottom: 1px dotted #949DA7;
+  width: 19px;
+  height: 41px;
+  display: inline-flex;
+  position: absolute;
+  margin-top: -25px;
+  z-index: 1;
+}
+
+.empty-node-branch-line {
+  @extend .branch-line;
+  margin-top: 16px;
+  margin-right: -7px;
+}
+
+.tree-no-border-bottom {
+  border-bottom: none;
+}
+
+.tree-no-border {
+  border: none;
+}

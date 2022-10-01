@@ -1,0 +1,73 @@
+.nicico-tree-node-default-actions {
+  display: inline-block;
+
+  .add-node-container {
+    height: 2.14rem;
+    border: {
+      right: 1px solid #b5c0ca;
+      left: 1px solid transparent;
+      bottom: 1px solid transparent;
+      top: 1px solid transparent;
+    };
+    padding: 0 10px;
+    text-align: center;
+    display: inline-block;
+    border-radius: 4px 0 0 4px;
+
+    .add-node-svg-container {
+      margin-top: 1px;
+
+      .add-node-svg {
+        margin-top: 7px;
+        fill: #324458;
+
+        &:hover {
+          fill: #FE9D2A;
+        }
+      }
+    }
+
+    &:hover {
+      background-color: white;
+      border: 1px solid #F1F6FB;
+    }
+  }
+
+  .delete-node-container {
+    display: inline-block;
+    margin: 0 5px 0 10px;
+    padding: 0 5px 0 0;
+    text-align: center;
+    height: 2.21rem;
+
+    .delete-node-svg-container {
+      .delete-node-svg {
+        margin-top: 5px;
+        fill: #324458;
+        opacity: .5;
+      }
+    }
+  }
+
+  .edit-node-container {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 0 5px 0 0;
+    text-align: center;
+    height: 2.21rem;
+
+    .edit-node-svg-container {
+      .edit-node-svg {
+        margin-top: 5px;
+        fill: #324458;
+        opacity: .5;
+      }
+    }
+  }
+
+}
+
+.custom-comp-container {
+  display: inline-block;
+  vertical-align: middle;
+}
